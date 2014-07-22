@@ -1,0 +1,3 @@
+zlatlong -- an implementation of Microsoft's lat/long compression scheme
+
+Godoc: http://godoc.org/github.com/dgryski/go-zlatlong
