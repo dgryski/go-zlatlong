@@ -60,7 +60,7 @@ func Unmarshal(value []byte) ([]Point, error) {
 		diagonal := int((math.Sqrt(8*float64(n)+5) - 1) / 2)
 
 		n -= diagonal * (diagonal + 1) / 2
-		ny := int(n)
+		ny := n
 		nx := diagonal - ny
 		nx = (nx >> 1) ^ -(nx & 1)
 		ny = (ny >> 1) ^ -(ny & 1)
