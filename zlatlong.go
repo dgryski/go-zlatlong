@@ -16,7 +16,7 @@ var safeCharacters = []byte("ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxy
 // Unmarshal decodes a compressed set of lat/long points
 func Unmarshal(value []byte) ([]Point, error) {
 
-	// From http://jkebeck.wordpress.com/2013/06/25/retrieving-boundaries-from-the-bing-spatial-data-services-preview/
+	// From https://docs.microsoft.com/en-us/bingmaps/spatial-data-services/geodata-api
 
 	var points []Point
 
