@@ -30,3 +30,13 @@ func TestEncode(t *testing.T) {
 		}
 	}
 }
+
+var sink int
+
+func BenchmarkDecode(b *testing.B) {
+	output := []byte("vx1vilihnM6hR7mEl2Q")
+	for i := 0; i < b.N; i++ {
+		p2, _ := Unmarshal(output)
+		sink += len(p2)
+	}
+}
