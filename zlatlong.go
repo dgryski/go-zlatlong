@@ -2,7 +2,6 @@
 package zlatlong
 
 import (
-	"bytes"
 	"errors"
 	"math"
 )
@@ -12,6 +11,18 @@ type Point struct {
 }
 
 var safeCharacters = []byte("ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789_-")
+
+var safeIdx [256]byte
+
+func init() {
+	for i := range safeIdx {
+		safeIdx[i] = 255
+	}
+
+	for i, c := range safeCharacters {
+		safeIdx[c] = byte(i)
+	}
+}
 
 // Unmarshal decodes a compressed set of lat/long points
 func Unmarshal(value []byte) ([]Point, error) {
@@ -35,9 +46,9 @@ func Unmarshal(value []byte) ([]Point, error) {
 				return nil, nil
 			}
 
-			b := bytes.IndexByte(safeCharacters, value[index])
+			b := int(safeIdx[value[index]])
 			index++
-			if b == -1 {
+			if b == 255 {
 				return nil, errors.New("invalid character")
 			}
 
