@@ -32,13 +32,13 @@ func Unmarshal(value []byte) ([]Point, error) {
 	var points []Point
 
 	index := 0
-	xsum := 0
-	ysum := 0
-	max := 4294967296
+	xsum := int64(0)
+	ysum := int64(0)
+	max := int64(4294967296)
 
 	for index < len(value) {
 
-		n := 0
+		n := int64(0)
 		k := uint(0)
 
 		for {
@@ -46,7 +46,7 @@ func Unmarshal(value []byte) ([]Point, error) {
 				return nil, nil
 			}
 
-			b := int(safeIdx[value[index]])
+			b := int64(safeIdx[value[index]])
 			index++
 			if b == 255 {
 				return nil, errors.New("invalid character")
@@ -68,7 +68,7 @@ func Unmarshal(value []byte) ([]Point, error) {
 			}
 		}
 
-		diagonal := int((math.Sqrt(8*float64(n)+5) - 1) / 2)
+		diagonal := int64((math.Sqrt(8*float64(n)+5) - 1) / 2)
 
 		n -= diagonal * (diagonal + 1) / 2
 		ny := n
@@ -84,12 +84,12 @@ func Unmarshal(value []byte) ([]Point, error) {
 	return points, nil
 }
 
-func round(f float64) int {
+func round(f float64) int64 {
 	if f < 0 {
-		return int(f - 0.5)
+		return int64(f - 0.5)
 	}
 
-	return int(f + 0.5)
+	return int64(f + 0.5)
 }
 
 // Marshal encodes a series of lat/long points
@@ -97,8 +97,8 @@ func Marshal(points []Point) []byte {
 
 	// From http://msdn.microsoft.com/en-us/library/jj158958.aspx
 
-	latitude := 0
-	longitude := 0
+	latitude := int64(0)
+	longitude := int64(0)
 	var result []byte
 
 	for _, point := range points {
